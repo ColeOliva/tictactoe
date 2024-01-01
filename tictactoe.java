@@ -10,26 +10,50 @@ import java.util.*;
 public class tictactoe {
   public static void main(String[] args) {
 
-    char[][] table = new char[3][3];
     Scanner console = new Scanner(System.in);
+    play(console);
+
+  }
+
+  // the actual mechanics of the game;
+  private static void play(Scanner console) {
+    char[][] table = new char[3][3];
+    int count = 0;
 
     intro(console);
 
     while (!isWinner(table)) {
-      for (int i = 1; i < 3; i++)
-      System.out.print("Player " + i + ", please select a row from 1 to 3," +
-                        " or type any other number to quit");
-      int row = console.nextInt();
-      System.out.print("please select a column from 1 to 3: ");
-      int column = console.nextInt();
-      table[row][column] = 'X';
-      printBoard(table);
-      if (isWinner(table)) {
-        // if i = 1, p1, vice versa.
+      for (int i = 1; i < 3; i++) {
+        System.out.print("Player " + i + ", please select a row from 1 to 3," +
+                          " or type any other number to quit: ");
+        int row = console.nextInt();
+        if (row < 1 || row > 3) {
+          return;
+        }
+        System.out.print("please select a column from 1 to 3: ");
+        int column = console.nextInt();
+        if (i == 1) {
+          table[row-1][column-1] = 'X';
+        } else {
+          table[row-1][column-1] = 'O';
+        }
+        count++;
+        printBoard(table);
+        if (isWinner(table) || count == 9) {
+          if (isWinner(table)) {
+            System.out.println("Player " + i + " wins! press r to restart, or anything else to quit: ");
+          } else {
+            System.out.println("Scratch! Press r to restart, or anything else to quit: ");
+          }
+          String next = console.next();
+          if (next.equalsIgnoreCase("r")) {
+            play(console);
+          } else {
+            return;
+          }
+        }
       }
     }
-
-    
   }
 
   // a method that uses the table given to figure out if anyone is a winner
@@ -41,9 +65,10 @@ public class tictactoe {
   // prints out a visual representation of the board
   private static void printBoard(char[][] table) {
     for (int i = 0; i < table.length; i++) {
-      for (int j = 0; j < table[i].length; i++) {
-        
+      for (int j = 0; j < table[i].length; j++) {
+        System.out.print(" " + table[i][j] + " ");
       }
+      System.out.println();
     }
   }
 

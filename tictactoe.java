@@ -32,13 +32,13 @@ public class tictactoe {
         System.out.print("Player " + i + ", please select a row from 1 to 3: ");
         int row = console.nextInt();
         while (row < 1 || row > 3) {
-          System.out.print("number is out of bounds! try again : ");
+          System.out.print("number is invalid! try again : ");
           row = console.nextInt();
         }
         System.out.print("please select a column from 1 to 3: ");
         int column = console.nextInt();
         while (column < 1 || column > 3) {
-          System.out.print("number is out of bounds! try again: ");
+          System.out.print("number is invalid! try again: ");
           column = console.nextInt();
         }
         if (i == 1) {
@@ -68,16 +68,26 @@ public class tictactoe {
   // a method that uses the table given to figure out if anyone is a winner
   // returns true if so, false if no winner yet.
   private static boolean isWinner(char[][] table) {
+    
+    // all row matches
     for (int i = 0; i < table.length; i++) {
       if (table[i][0] != ' ' && table[i][0] == table[i][1] && table[i][1] == table[i][2]) {
         return true;
       }
     }
+
+    // column matches
     for (int j = 0; j < table[0].length; j++) {
       if (table[0][j] != ' ' && table[0][j] == table[1][j] && table[1][j] == table[2][j]) {
         return true;
       }
     }
+
+    // diagonal wins
+    if (table[0][0] != ' ' && table[0][0] == table[1][1] && table[1][1] == table[2][2] ||
+        table[0][2] != ' ' && table[0][2] == table[1][1] && table[1][1] == table[2][0]) {
+          return true;
+        }
     return false;
   }
 

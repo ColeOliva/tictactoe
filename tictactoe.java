@@ -16,8 +16,17 @@ public class tictactoe {
     intro(console);
 
     while (!isWinner(table)) {
-      System.out.print("Player 1, please select a row from 1 to 3, or q to quit");
-
+      for (int i = 1; i < 3; i++)
+      System.out.print("Player " + i + ", please select a row from 1 to 3," +
+                        " or type any other number to quit");
+      int row = console.nextInt();
+      System.out.print("please select a column from 1 to 3: ");
+      int column = console.nextInt();
+      table[row][column] = 'X';
+      printBoard(table);
+      if (isWinner(table)) {
+        // if i = 1, p1, vice versa.
+      }
     }
 
     
@@ -31,7 +40,11 @@ public class tictactoe {
 
   // prints out a visual representation of the board
   private static void printBoard(char[][] table) {
-
+    for (int i = 0; i < table.length; i++) {
+      for (int j = 0; j < table[i].length; i++) {
+        
+      }
+    }
   }
 
   // beginning the game, making sure players know whether they are X or O

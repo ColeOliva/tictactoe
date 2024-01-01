@@ -13,7 +13,13 @@ public class tictactoe {
     char[][] table = new char[3][3];
     Scanner console = new Scanner(System.in);
 
-    intro(table, console);
+    intro(console);
+
+    while (!isWinner(table)) {
+      System.out.print("Player 1, please select a row from 1 to 3, or q to quit");
+
+    }
+
     
   }
 
@@ -23,14 +29,23 @@ public class tictactoe {
     return false;
   }
 
-  private static void intro(char[][] table, Scanner console) {
+  // prints out a visual representation of the board
+  private static void printBoard(char[][] table) {
+
+  }
+
+  // beginning the game, making sure players know whether they are X or O
+  private static void intro(Scanner console) {
     System.out.println("Player 1 is X, player 2 is O");
+
+    // makes sure players know their role
     System.out.print("Player 1, type yes to confirm: ");
     String confirm = console.next();
     while (!confirm.equalsIgnoreCase("yes")) {
       System.out.print("Player 1, type yes to confirm: ");
       confirm = console.next();
     }
+
     System.out.print("Player 2, type yes to confirm: ");
     String confirm2 = console.next();
     while (!confirm2.equalsIgnoreCase("yes")) {

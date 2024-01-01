@@ -18,6 +18,8 @@ public class tictactoe {
   // the actual mechanics of the game;
   private static void play(Scanner console) {
     char[][] table = new char[3][3];
+
+    // makin every tile empty
     for (int i = 0; i < table.length; i++) {
       for (int j = 0; j < table[i].length; j++) {
         table[i][j] = ' ';
@@ -41,13 +43,20 @@ public class tictactoe {
           System.out.print("number is invalid! try again: ");
           column = console.nextInt();
         }
-        if (i == 1) {
-          table[row-1][column-1] = 'X';
+        if (table[row-1][column-1] != ' ') {
+          System.out.println("Sorry, that position is taken. try again");
+          i--;
         } else {
-          table[row-1][column-1] = 'O';
+          if (i == 1) {
+            table[row-1][column-1] = 'X';
+          } else {
+            table[row-1][column-1] = 'O';
+          }
+          count++;
+          printBoard(table);
         }
-        count++;
-        printBoard(table);
+
+        // given a winner, or the board is full
         if (isWinner(table) || count == 9) {
           if (isWinner(table)) {
             System.out.print("Player " + i + " wins! press r to restart, or anything else to quit: ");

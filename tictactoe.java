@@ -18,20 +18,29 @@ public class tictactoe {
   // the actual mechanics of the game;
   private static void play(Scanner console) {
     char[][] table = new char[3][3];
+    for (int i = 0; i < table.length; i++) {
+      for (int j = 0; j < table[i].length; j++) {
+        table[i][j] = ' ';
+      }
+    }
     int count = 0;
 
     intro(console);
 
     while (!isWinner(table)) {
       for (int i = 1; i < 3; i++) {
-        System.out.print("Player " + i + ", please select a row from 1 to 3," +
-                          " or type any other number to quit: ");
+        System.out.print("Player " + i + ", please select a row from 1 to 3: ");
         int row = console.nextInt();
-        if (row < 1 || row > 3) {
-          return;
+        while (row < 1 || row > 3) {
+          System.out.print("number is out of bounds! try again : ");
+          row = console.nextInt();
         }
         System.out.print("please select a column from 1 to 3: ");
         int column = console.nextInt();
+        while (column < 1 || column > 3) {
+          System.out.print("number is out of bounds! try again: ");
+          column = console.nextInt();
+        }
         if (i == 1) {
           table[row-1][column-1] = 'X';
         } else {
@@ -41,9 +50,9 @@ public class tictactoe {
         printBoard(table);
         if (isWinner(table) || count == 9) {
           if (isWinner(table)) {
-            System.out.println("Player " + i + " wins! press r to restart, or anything else to quit: ");
+            System.out.print("Player " + i + " wins! press r to restart, or anything else to quit: ");
           } else {
-            System.out.println("Scratch! Press r to restart, or anything else to quit: ");
+            System.out.print("Scratch! Press r to restart, or anything else to quit: ");
           }
           String next = console.next();
           if (next.equalsIgnoreCase("r")) {
@@ -59,6 +68,16 @@ public class tictactoe {
   // a method that uses the table given to figure out if anyone is a winner
   // returns true if so, false if no winner yet.
   private static boolean isWinner(char[][] table) {
+    for (int i = 0; i < table.length; i++) {
+      if (table[i][0] != ' ' && table[i][0] == table[i][1] && table[i][1] == table[i][2]) {
+        return true;
+      }
+    }
+    for (int j = 0; j < table[0].length; j++) {
+      if (table[0][j] != ' ' && table[0][j] == table[1][j] && table[1][j] == table[2][j]) {
+        return true;
+      }
+    }
     return false;
   }
 
